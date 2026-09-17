@@ -1,0 +1,19 @@
+# Credenciales reales: KEY, SECRET, contraseña de la base de datos, etc.
+# La plantilla directus.env.example SI se versiona.
+directus.env
+directus.env.*
+!directus.env.example
+
+# Archivos subidos por los editores desde el panel (imagenes, PDF, Excel).
+# Pesan cientos de MB y no son codigo: viajan al servidor por copia directa,
+# no por git. Ver README.md.
+uploads/
+
+# Respaldos y exportaciones puntuales de datos (backups de tablas, volcados
+# de indicadores/temas, el .bak de SQL Server). Tampoco son codigo.
+backup*
+respaldo*
+
+# Editor / SO
+.DS_Store
+Thumbs.db
