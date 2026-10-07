@@ -1,6 +1,6 @@
 # portal-directus
 
-Configuración de Directus (API/CMS) para el [Portal de Registros Administrativos](https://github.com/renzolaysa/Portal_RA) del INEI.
+Configuración de Directus (API/CMS) para el [Portal de Registros Administrativos](https://github.com/renzolaysa-arch/Portal_RA) del INEI.
 
 Este repositorio versiona solo la **configuración**: la receta para levantar el mismo Directus en cualquier máquina. No versiona las credenciales reales, los archivos subidos por los editores ni los respaldos de datos — eso viaja aparte, por copia directa.
 
@@ -40,4 +40,4 @@ Estos tres elementos no están en git; se copian a mano desde el respaldo corres
 
 ## Portal que consume esta API
 
-El frontend vive en [renzolaysa/Portal_RA](https://github.com/renzolaysa/Portal_RA) y se conecta vía la variable `VITE_DIRECTUS_URL`.
+El frontend vive en [renzolaysa-arch/Portal_RA](https://github.com/renzolaysa-arch/Portal_RA) y se conecta vía la variable `VITE_DIRECTUS_URL`.
