@@ -1,19 +1,13 @@
 services:
   directus:
-    # Version fijada. La etiqueta `latest` se movia sola: cada `docker compose pull`
-    # podia traer una version distinta, de modo que local, despliegue, QA y produccion
-    # acabarian corriendo Directus diferentes sin que nadie lo pidiera.
-    #
-    # El digest es el del INDICE multiarquitectura (linux/amd64 y linux/arm64), no el de
-    # una sola plataforma: sirve igual en el servidor de otin sea cual sea su arquitectura.
-    # Ancla el contenido exacto aunque alguien reescribiera la etiqueta en el registro.
-    #
-    # Para subir de version hay que cambiar AMBOS, etiqueta y digest. El digest nuevo se
-    # obtiene con:  docker buildx imagetools inspect directus/directus:<version>
+    # Etiqueta y digest (del indice multiarquitectura) fijos; al subir de version se cambian
+    # ambos. Digest nuevo: docker buildx imagetools inspect directus/directus:<version>
     image: directus/directus:11.14.0@sha256:048e061ca3cbe0bca47daa2c493b31b7f4195913a14bdf221308dc1345656225
     container_name: portal-directus
     ports:
-      - "8055:8055"
+      # Solo en localhost: se llega por el proxy /directus del servidor web. En Linux,
+      # Docker abre los puertos publicados saltandose el cortafuegos.
+      - "127.0.0.1:8055:8055"
     env_file:
       - directus.env
     volumes:

@@ -2,14 +2,14 @@
 
 Configuración de Directus (API/CMS) para el [Portal de Registros Administrativos](https://github.com/renzolaysa-arch/Portal_RA) del INEI.
 
-Este repositorio versiona solo la **configuración**: la receta para levantar el mismo Directus en cualquier máquina. No versiona las credenciales reales, los archivos subidos por los editores ni los respaldos de datos — eso viaja aparte, por copia directa.
+Este repositorio versiona solo la **configuración** necesaria para levantar el mismo Directus en cualquier máquina. Las credenciales reales, los archivos subidos por los editores y los respaldos de datos se copian aparte.
 
 ## Qué hay aquí
 
 - `docker-compose.yml`: la definición del contenedor de Directus, con la versión fijada por digest (ver los comentarios del archivo).
-- `directus.env.example`: plantilla de variables de entorno. Cópiala a `directus.env` y completa los valores reales; `directus.env` nunca se sube a git.
+- `directus.env.example`: plantilla de variables de entorno. Se copia a `directus.env` con los valores reales; `directus.env` nunca se sube a git.
 
-## Qué NO hay aquí (y por qué)
+## Qué no se versiona
 
 | Excluido | Motivo |
 |---|---|
@@ -28,15 +28,17 @@ cp directus.env.example directus.env
 docker compose up -d
 ```
 
-Directus queda escuchando en `http://localhost:8055` (o el `PUBLIC_URL` que hayas puesto).
+Directus queda escuchando en `http://localhost:8055` (o en el `PUBLIC_URL` configurado).
+
+El puerto se publica solo en `127.0.0.1`. Desde otra máquina se llega a Directus a través del proxy `/directus` del servidor web del portal, que además bloquea el panel `/admin` (ver `docs/DESPLIEGUE.md` en el repositorio del portal). Si el servidor web está en otra máquina, el puerto se publica en la IP interna y se limita con el cortafuegos a ese servidor.
 
 ## Restaurar datos y archivos
 
 Estos tres elementos no están en git; se copian a mano desde el respaldo correspondiente:
 
-1. **Base de datos**: restaura el `.bak` de SQL Server más reciente en el motor que uses.
-2. **Archivos subidos**: copia el contenido de `uploads/` al lado de este `docker-compose.yml` antes de levantar el contenedor (está montado como volumen).
-3. **Esquema de Directus** (colecciones, campos, permisos): si es una instalación nueva sin base de datos previa, hay que recrear las colecciones a mano o desde un snapshot del esquema; este repositorio no incluye uno todavía.
+1. **Base de datos**: se restaura el `.bak` de SQL Server más reciente.
+2. **Archivos subidos**: el contenido de `uploads/` se copia junto a este `docker-compose.yml` antes de levantar el contenedor (está montado como volumen).
+3. **Esquema de Directus** (colecciones, campos, permisos): en una instalación nueva sin base de datos previa, las colecciones se recrean a mano o desde un snapshot del esquema; este repositorio no incluye uno.
 
 ## Portal que consume esta API
 
